@@ -1,10 +1,16 @@
 ﻿namespace FlyingDutchmanAirlines.DatabaseLayer.Models;
 
-public partial class Customer
+public sealed class Customer
 {
     public int CustomerId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string Name { get; set; }
 
-    public virtual ICollection<Booking> Bookings { get; } = new List<Booking>();
+    public ICollection<Booking> Bookings { get; }
+
+    public Customer(string name)
+    {
+        Name = name;
+        Bookings = new List<Booking>();
+    }
 }

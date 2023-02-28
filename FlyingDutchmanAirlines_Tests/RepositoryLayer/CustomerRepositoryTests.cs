@@ -10,9 +10,42 @@ public class CustomerRepositoryTests
     }
 
     [Test]
-    public void TestCreateCustomer()
+    public async Task TestCreateCustomer_Success()
     {
         var repository = new CustomerRepository();
-        Assert.NotNull(repository);
+        Assert.IsNotNull(repository);
+
+        var result = await repository.CreateCustomer("test-name");
+        Assert.IsTrue(result);
+    }
+    
+    [Test]
+    public async Task TestCreateCustomer_Failure_NameNullOrEmpty()
+    {
+        var repository = new CustomerRepository();
+        Assert.IsNotNull(repository);
+
+        var result = await repository.CreateCustomer("");
+        Assert.IsFalse(result);
+
+        result = await repository.CreateCustomer(null);
+        Assert.IsFalse(result);
+    }
+    
+    // inline test data
+    [TestCase('!')]
+    [TestCase('@')]
+    [TestCase('#')]
+    [TestCase('$')]
+    [TestCase('%')]
+    [TestCase('&')]
+    [TestCase('*')]
+    public async Task TestCreateCustomer_Failure_NameInvalid(char invalidChar)
+    {
+        var repository = new CustomerRepository();
+        Assert.IsNotNull(repository);
+
+        var result = await repository.CreateCustomer("test-name" + invalidChar);
+        Assert.IsFalse(result);
     }
 }
