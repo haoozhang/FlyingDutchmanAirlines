@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingDutchmanAirlines", "FlyingDutchmanAirlines\FlyingDutchmanAirlines.csproj", "{B2DE1F45-42C2-4382-A7BA-0140DFC0C215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingDutchmanAirlines_Tests", "FlyingDutchmanAirlines_Tests\FlyingDutchmanAirlines_Tests.csproj", "{AA8B101D-C327-4A97-ABCC-9AB5EA4DEE11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2DE1F45-42C2-4382-A7BA-0140DFC0C215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DE1F45-42C2-4382-A7BA-0140DFC0C215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DE1F45-42C2-4382-A7BA-0140DFC0C215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DE1F45-42C2-4382-A7BA-0140DFC0C215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA8B101D-C327-4A97-ABCC-9AB5EA4DEE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8B101D-C327-4A97-ABCC-9AB5EA4DEE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8B101D-C327-4A97-ABCC-9AB5EA4DEE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8B101D-C327-4A97-ABCC-9AB5EA4DEE11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
