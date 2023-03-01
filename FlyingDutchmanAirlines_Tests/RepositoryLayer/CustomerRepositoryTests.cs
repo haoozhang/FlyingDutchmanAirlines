@@ -51,4 +51,17 @@ public class CustomerRepositoryTests
         var result = await _repository.CreateCustomer("test-name" + invalidChar);
         Assert.IsFalse(result);
     }
+
+    [Test]
+    public async Task TestGetCustomerByName_Success()
+    {
+        var customerName = "test-name";
+        var result = await _repository.CreateCustomer(customerName);
+        Assert.IsTrue(result);
+
+        var dbCustomer = _context.Customers.First();
+        var customer = await _repository.GetCustomerByName(customerName);
+        Assert.IsNotNull(customer);
+        Assert.That(customer, Is.EqualTo(dbCustomer));
+    }
 }
