@@ -1,34 +1,40 @@
+using FlyingDutchmanAirlines.DatabaseLayer;
 using FlyingDutchmanAirlines.RepositoryLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyingDutchmanAirlines_Tests.RepositoryLayer;
 
 public class CustomerRepositoryTests
 {
+    private FlyingDutchmanAirlinesContext _context;
+
+    private CustomerRepository _repository;
+    
     [SetUp]
     public void Setup()
     {
-    }
+        var dbContextOptions = new DbContextOptionsBuilder<FlyingDutchmanAirlinesContext>()
+            .UseInMemoryDatabase("FlyingDutchmanAirlines").Options;
+        _context = new FlyingDutchmanAirlinesContext(dbContextOptions);
 
+        _repository = new CustomerRepository(_context);
+        Assert.IsNotNull(_repository);
+    }
+    
     [Test]
     public async Task TestCreateCustomer_Success()
     {
-        var repository = new CustomerRepository();
-        Assert.IsNotNull(repository);
-
-        var result = await repository.CreateCustomer("test-name");
+        var result = await _repository.CreateCustomer("test-name");
         Assert.IsTrue(result);
     }
     
     [Test]
     public async Task TestCreateCustomer_Failure_NameNullOrEmpty()
     {
-        var repository = new CustomerRepository();
-        Assert.IsNotNull(repository);
-
-        var result = await repository.CreateCustomer("");
+        var result = await _repository.CreateCustomer("");
         Assert.IsFalse(result);
 
-        result = await repository.CreateCustomer(null);
+        result = await _repository.CreateCustomer(null);
         Assert.IsFalse(result);
     }
     
@@ -42,10 +48,7 @@ public class CustomerRepositoryTests
     [TestCase('*')]
     public async Task TestCreateCustomer_Failure_NameInvalid(char invalidChar)
     {
-        var repository = new CustomerRepository();
-        Assert.IsNotNull(repository);
-
-        var result = await repository.CreateCustomer("test-name" + invalidChar);
+        var result = await _repository.CreateCustomer("test-name" + invalidChar);
         Assert.IsFalse(result);
     }
 }
