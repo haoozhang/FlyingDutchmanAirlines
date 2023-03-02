@@ -64,4 +64,10 @@ public class CustomerRepositoryTests
         Assert.IsNotNull(customer);
         Assert.That(customer, Is.EqualTo(dbCustomer));
     }
+    
+    [TearDown]
+    public void Cleanup()
+    {
+        _context.Database.EnsureDeleted();
+    }
 }
