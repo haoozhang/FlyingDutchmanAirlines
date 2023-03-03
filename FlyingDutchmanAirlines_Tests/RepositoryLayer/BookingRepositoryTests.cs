@@ -18,6 +18,7 @@ public class BookingRepositoryTests
     {
         var dbContextOptions = new DbContextOptionsBuilder<FlyingDutchmanAirlinesContext>()
             .UseInMemoryDatabase("FlyingDutchmanAirlines").Options;
+        // use stub class to customize the behavior of in-memory database
         _context = new FlyingDutchmanAirlinesContextStub(dbContextOptions);
 
         _repository = new BookingRepository(_context);
