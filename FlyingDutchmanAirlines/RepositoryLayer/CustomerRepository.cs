@@ -8,13 +8,15 @@ namespace FlyingDutchmanAirlines.RepositoryLayer;
 public class CustomerRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
+    
+    public CustomerRepository() { }
 
     public CustomerRepository(FlyingDutchmanAirlinesContext context)
     {
         _context = context;
     }
     
-    public async Task<bool> CreateCustomer(string name)
+    public virtual async Task<bool> CreateCustomer(string name)
     {
         if (IsInvalidCustomerName(name))
         {
@@ -43,7 +45,7 @@ public class CustomerRepository
         return string.IsNullOrEmpty(name) || name.Any(c => forbiddenCharacters.Contains(c));
     }
 
-    public async Task<Customer> GetCustomerByName(string name)
+    public virtual async Task<Customer> GetCustomerByName(string name)
     {
         if (IsInvalidCustomerName(name))
         {

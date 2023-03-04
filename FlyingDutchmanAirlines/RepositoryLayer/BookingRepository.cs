@@ -8,13 +8,15 @@ namespace FlyingDutchmanAirlines.RepositoryLayer;
 public class BookingRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
+    
+    public BookingRepository() { }
 
     public BookingRepository(FlyingDutchmanAirlinesContext context)
     {
         _context = context;
     }
 
-    public async Task<bool> CreateBooking(int customerId, int flightNumber)
+    public virtual async Task<bool> CreateBooking(int customerId, int flightNumber)
     {
         if (customerId.IsNegative() || flightNumber.IsNegative())
         {

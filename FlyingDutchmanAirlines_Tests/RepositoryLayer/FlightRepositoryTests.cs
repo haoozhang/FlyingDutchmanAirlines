@@ -64,6 +64,7 @@ public class FlightRepositoryTests
         };
 
         _context.Flights.Add(flight);
+        await _context.SaveChangesAsync();
 
         var result = await _repository.GetFlightByFlightNumber(1, 1, 1);
         

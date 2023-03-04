@@ -25,20 +25,14 @@ public class AirportRepositoryTests
     [Test]
     public async Task GetAirportById_Failure_InvalidInput()
     {
-        var outputStream = new StringWriter();
         try
         {
-            Console.SetOut(outputStream);
             await _repository.GetAirportById(-1);
             Assert.Fail("Argument Exception should be thrown.");
         }
         catch (ArgumentException e)
         {
-            Assert.IsTrue(outputStream.ToString().Contains("Argument Exception in GetAirportById, AirportId = -1"));
-        }
-        finally
-        {
-            await outputStream.DisposeAsync();
+            Assert.That(e.Message, Is.EqualTo("Invalid airport id provided."));
         }
     }
 
