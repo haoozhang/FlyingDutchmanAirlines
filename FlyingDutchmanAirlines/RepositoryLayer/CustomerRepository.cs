@@ -47,7 +47,7 @@ public class CustomerRepository
     {
         if (IsInvalidCustomerName(name))
         {
-            throw new CustomerNotFoundException();
+            throw new ArgumentException("Invalid customer name provided.");
         }
 
         return await _context.Customers.FirstOrDefaultAsync(c => c.Name == name)

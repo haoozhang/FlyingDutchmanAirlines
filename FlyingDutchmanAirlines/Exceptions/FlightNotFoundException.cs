@@ -1,6 +1,6 @@
 namespace FlyingDutchmanAirlines.Exceptions;
 
-public class CustomerNotFoundException : Exception
+public class FlightNotFoundException : Exception
 {
     
 }

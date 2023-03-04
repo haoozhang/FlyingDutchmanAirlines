@@ -3,7 +3,6 @@ using FlyingDutchmanAirlines.DatabaseLayer;
 using FlyingDutchmanAirlines.Exceptions;
 using FlyingDutchmanAirlines.RepositoryLayer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace FlyingDutchmanAirlines_Tests.RepositoryLayer;
 
