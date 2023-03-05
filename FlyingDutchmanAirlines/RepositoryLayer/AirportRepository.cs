@@ -10,12 +10,14 @@ public class AirportRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
 
+    public AirportRepository() { }
+    
     public AirportRepository(FlyingDutchmanAirlinesContext context)
     {
         _context = context;
     }
 
-    public async Task<Airport> GetAirportById(int airportId)
+    public virtual async Task<Airport> GetAirportById(int airportId)
     {
         if (airportId.IsNegative())
         {

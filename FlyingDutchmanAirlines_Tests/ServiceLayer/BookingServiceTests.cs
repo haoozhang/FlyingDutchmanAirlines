@@ -13,6 +13,8 @@ public class BookingServiceTests
 
     private Mock<CustomerRepository> _customerRepositoryMock;
 
+    private Mock<FlightRepository> _flightRepositoryMock;
+
     private BookingService _bookingService;
 
     [SetUp]
@@ -20,7 +22,8 @@ public class BookingServiceTests
     {
         _bookingRepositoryMock = new Mock<BookingRepository>();
         _customerRepositoryMock = new Mock<CustomerRepository>();
-        _bookingService = new BookingService(_bookingRepositoryMock.Object, _customerRepositoryMock.Object);
+        _flightRepositoryMock = new Mock<FlightRepository>();
+        _bookingService = new BookingService(_bookingRepositoryMock.Object, _customerRepositoryMock.Object, _flightRepositoryMock.Object);
     }
 
     [Test]
@@ -33,6 +36,10 @@ public class BookingServiceTests
         _customerRepositoryMock
             .Setup(c => c.GetCustomerByName("0"))
             .ReturnsAsync(new Customer("0") {CustomerId = 0});
+
+        _flightRepositoryMock
+            .Setup(f => f.GetFlightByFlightNumber(0))
+            .ReturnsAsync(new Flight() {FlightNumber = 0});
         
         var result = await _bookingService.CreateBooking("0", 0);
         Assert.IsTrue(result.Item1);
@@ -61,9 +68,30 @@ public class BookingServiceTests
             .Setup(c => c.GetCustomerByName("1"))
             .ReturnsAsync(new Customer("1") {CustomerId = 1});
         
+        _flightRepositoryMock
+            .Setup(f => f.GetFlightByFlightNumber(1))
+            .ReturnsAsync(new Flight() {FlightNumber = 1});
+        
         var result = await _bookingService.CreateBooking("1", 1);
         Assert.IsFalse(result.Item1);
         Assert.IsNotNull(result.Item2);
         Assert.IsInstanceOf(typeof(CouldNotAddBookingToDatabaseException), result.Item2);
+    }
+    
+    [Test]
+    public async Task CreateBooking_Failure_FlightNotExistInDatabase()
+    {
+        _customerRepositoryMock
+            .Setup(c => c.GetCustomerByName("2"))
+            .ReturnsAsync(new Customer("2") {CustomerId = 2});
+        
+        _flightRepositoryMock
+            .Setup(f => f.GetFlightByFlightNumber(2))
+            .ThrowsAsync(new FlightNotFoundException());
+        
+        var result = await _bookingService.CreateBooking("2", 2);
+        Assert.IsFalse(result.Item1);
+        Assert.IsNotNull(result.Item2);
+        Assert.IsInstanceOf(typeof(FlightNotFoundException), result.Item2);
     }
 }

@@ -24,27 +24,12 @@ public class FlightRepositoryTests
         Assert.IsNotNull(_repository);
     }
 
-    [TestCase(0, -1)]
-    [TestCase(-1, 0)]
-    public async Task GetFlightByFlightNumber_Failure_InvalidAirportId(int origin, int destination)
-    {
-        try
-        {
-            await _repository.GetFlightByFlightNumber(0, origin, destination);
-            Assert.Fail("Should throw exception.");
-        }
-        catch (ArgumentException e)
-        {
-            Assert.Pass("Argument Exception expected.");
-        }
-    }
-
     [Test]
     public async Task GetFlightByFlightNumber_Failure_InvalidFlightNumber()
     {
         try
         {
-            await _repository.GetFlightByFlightNumber(-1, 0, 0);
+            await _repository.GetFlightByFlightNumber(-1);
             Assert.Fail("Should throw exception.");
         }
         catch (ArgumentException e)
@@ -66,12 +51,12 @@ public class FlightRepositoryTests
         _context.Flights.Add(flight);
         await _context.SaveChangesAsync();
 
-        var result = await _repository.GetFlightByFlightNumber(1, 1, 1);
+        var result = await _repository.GetFlightByFlightNumber(1);
         
         Assert.IsNotNull(result);
-        Assert.AreEqual(1, result.FlightNumber);
-        Assert.AreEqual(1, result.Origin);
-        Assert.AreEqual(1, result.Destination);
+        Assert.That(result.FlightNumber, Is.EqualTo(1));
+        Assert.That(result.Origin, Is.EqualTo(1));
+        Assert.That(result.Destination, Is.EqualTo(1));
     }
 
     [Test]
@@ -88,7 +73,7 @@ public class FlightRepositoryTests
 
         try
         {
-            var result = await _repository.GetFlightByFlightNumber(1, 1, 1);
+            var result = await _repository.GetFlightByFlightNumber(1);
             Assert.Fail("Should throw exception.");
         }
         catch (FlightNotFoundException e)

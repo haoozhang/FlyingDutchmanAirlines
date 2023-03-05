@@ -9,7 +9,6 @@ public class BookingRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
     
-    // for test only
     public BookingRepository() { }
 
     public BookingRepository(FlyingDutchmanAirlinesContext context)

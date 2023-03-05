@@ -11,15 +11,18 @@ public class BookingService
 
     private readonly CustomerRepository _customerRepository;
 
-    public BookingService(BookingRepository bookingRepository, CustomerRepository customerRepository)
+    private readonly FlightRepository _flightRepository;
+
+    public BookingService(BookingRepository bookingRepository, CustomerRepository customerRepository, FlightRepository flightRepository)
     {
         _bookingRepository = bookingRepository;
         _customerRepository = customerRepository;
+        _flightRepository = flightRepository;
     }
 
     public async Task<(bool, Exception?)> CreateBooking(string customerName, int flightNumber)
     {
-        if (String.IsNullOrEmpty(customerName) || flightNumber.IsNegative())
+        if (string.IsNullOrEmpty(customerName) || flightNumber.IsNegative())
         {
             Console.WriteLine(
                 $"Argument exception in CreateBooking, customer name = {customerName}, flight number = {flightNumber}");
@@ -40,6 +43,9 @@ public class BookingService
 
         try
         {
+            _ = await _flightRepository.GetFlightByFlightNumber(flightNumber) ??
+                throw new FlightNotFoundException();
+            
             await _bookingRepository.CreateBooking(customer.CustomerId, flightNumber);
             return (true, null);
         }
