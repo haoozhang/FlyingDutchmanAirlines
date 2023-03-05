@@ -26,6 +26,8 @@ public class CustomerRepositoryTests
     {
         var result = await _repository.CreateCustomer("test-name");
         Assert.IsTrue(result);
+
+        await _context.Database.EnsureDeletedAsync();
     }
     
     [Test]
