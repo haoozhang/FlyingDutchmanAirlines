@@ -19,11 +19,13 @@ public class FlightRepository
     {
         if (flightNumber.IsNegative())
         {
-            throw new FlightNotFoundException();
+            Console.WriteLine($"Argument Exception in GetFlightByFlightNumber, flight number = {flightNumber}.");
+            throw new ArgumentException("Invalid flight number provided.");
         }
 
         if (originAirportId.IsNegative() || destinationAirportId.IsNegative())
         {
+            Console.WriteLine($"Argument Exception in GetFlightByFlightNumber, flight number = {flightNumber}.");
             throw new ArgumentException("Invalid airport id provided.");
         }
 

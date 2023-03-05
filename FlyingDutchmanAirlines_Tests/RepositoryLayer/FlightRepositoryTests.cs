@@ -47,9 +47,9 @@ public class FlightRepositoryTests
             await _repository.GetFlightByFlightNumber(-1, 0, 0);
             Assert.Fail("Should throw exception.");
         }
-        catch (FlightNotFoundException e)
+        catch (ArgumentException e)
         {
-            Assert.Pass("Flight NotFound Exception expected.");
+            Assert.Pass("Argument Exception expected.");
         }
     }
 

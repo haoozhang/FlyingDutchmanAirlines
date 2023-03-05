@@ -9,6 +9,7 @@ public class CustomerRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
     
+    // for test only
     public CustomerRepository() { }
 
     public CustomerRepository(FlyingDutchmanAirlinesContext context)
@@ -20,7 +21,8 @@ public class CustomerRepository
     {
         if (IsInvalidCustomerName(name))
         {
-            return false;
+            Console.WriteLine($"Argument Exception in CreateCustomer, customer name = {name}.");
+            throw new ArgumentException("Invalid customer name provided.");
         }
 
         var customer = new Customer(name);
@@ -30,11 +32,11 @@ public class CustomerRepository
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
         }
-        catch
+        catch (Exception e)
         {
-            return false;
+            Console.WriteLine($"Database Exception in CreateCustomer.");
+            throw new CouldNotAddCustomerToDatabaseException();
         }
-        
 
         return true;
     }
@@ -49,6 +51,7 @@ public class CustomerRepository
     {
         if (IsInvalidCustomerName(name))
         {
+            Console.WriteLine($"Argument Exception in GetCustomerByName, customer name = {name}.");
             throw new ArgumentException("Invalid customer name provided.");
         }
 

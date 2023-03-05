@@ -31,11 +31,25 @@ public class CustomerRepositoryTests
     [Test]
     public async Task TestCreateCustomer_Failure_NameNullOrEmpty()
     {
-        var result = await _repository.CreateCustomer("");
-        Assert.IsFalse(result);
-
-        result = await _repository.CreateCustomer(null);
-        Assert.IsFalse(result);
+        try
+        {
+            await _repository.CreateCustomer("");
+            Assert.Fail("Argument exception should be thrown.");
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Pass("Argument exception expected.");
+        }
+        
+        try
+        {
+            await _repository.CreateCustomer(null);
+            Assert.Fail("Argument exception should be thrown.");
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Pass("Argument exception expected.");
+        }
     }
     
     // inline test data
@@ -48,8 +62,15 @@ public class CustomerRepositoryTests
     [TestCase('*')]
     public async Task TestCreateCustomer_Failure_NameInvalid(char invalidChar)
     {
-        var result = await _repository.CreateCustomer("test-name" + invalidChar);
-        Assert.IsFalse(result);
+        try
+        {
+            await _repository.CreateCustomer("test-name" + invalidChar);
+            Assert.Fail("Argument exception should be thrown.");
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Pass("Argument exception expected.");
+        }
     }
 
     [Test]

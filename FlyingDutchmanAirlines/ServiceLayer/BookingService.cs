@@ -6,9 +6,9 @@ namespace FlyingDutchmanAirlines.ServiceLayer;
 
 public class BookingService
 {
-    private BookingRepository _bookingRepository;
+    private readonly BookingRepository _bookingRepository;
 
-    private CustomerRepository _customerRepository;
+    private readonly CustomerRepository _customerRepository;
 
     public BookingService(BookingRepository bookingRepository, CustomerRepository customerRepository)
     {
@@ -25,9 +25,8 @@ public class BookingService
         }
         catch (CustomerNotFoundException e)
         {
-            // if customer not found, create new one.
+            // if customer not found, create new one, then rerun recursively
             await _customerRepository.CreateCustomer(customerName);
-            // rerun by using recursive
             return await CreateBooking(customerName, flightNumber);
         }
 
