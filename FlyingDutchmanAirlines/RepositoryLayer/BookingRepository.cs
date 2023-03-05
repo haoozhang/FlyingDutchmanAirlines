@@ -17,7 +17,7 @@ public class BookingRepository
         _context = context;
     }
 
-    public async Task<bool> CreateBooking(int customerId, int flightNumber)
+    public virtual async Task<bool> CreateBooking(int customerId, int flightNumber)
     {
         if (customerId.IsNegative() || flightNumber.IsNegative())
         {

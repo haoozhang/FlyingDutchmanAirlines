@@ -1,5 +1,6 @@
 using FlyingDutchmanAirlines.DatabaseLayer.Models;
 using FlyingDutchmanAirlines.Exceptions;
+using FlyingDutchmanAirlines.Extensions;
 using FlyingDutchmanAirlines.RepositoryLayer;
 
 namespace FlyingDutchmanAirlines.ServiceLayer;
@@ -18,6 +19,13 @@ public class BookingService
 
     public async Task<(bool, Exception?)> CreateBooking(string customerName, int flightNumber)
     {
+        if (String.IsNullOrEmpty(customerName) || flightNumber.IsNegative())
+        {
+            Console.WriteLine(
+                $"Argument exception in CreateBooking, customer name = {customerName}, flight number = {flightNumber}");
+            return (false, new ArgumentException("Invalid customer name or flight number provided."));
+        }
+        
         Customer customer;
         try
         {
