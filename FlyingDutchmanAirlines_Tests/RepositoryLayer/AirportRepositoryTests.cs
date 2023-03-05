@@ -55,4 +55,10 @@ public class AirportRepositoryTests
         Assert.That(airport.City, Is.EqualTo("test-city"));
         Assert.That(airport.Iata, Is.EqualTo("GH"));
     }
+    
+    [TearDown]
+    public void Cleanup()
+    {
+        _context.Database.EnsureDeleted();
+    }
 }

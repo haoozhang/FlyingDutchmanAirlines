@@ -57,6 +57,8 @@ public class FlightRepositoryTests
         Assert.That(result.FlightNumber, Is.EqualTo(1));
         Assert.That(result.Origin, Is.EqualTo(1));
         Assert.That(result.Destination, Is.EqualTo(1));
+
+        await _context.Database.EnsureDeletedAsync();
     }
 
     [Test]
@@ -70,6 +72,7 @@ public class FlightRepositoryTests
         };
 
         _context.Flights.Add(flight);
+        await _context.SaveChangesAsync();
 
         try
         {
@@ -81,6 +84,46 @@ public class FlightRepositoryTests
             Assert.Pass("Flight Not Found Exception expected.");
         }
         
+        await _context.Database.EnsureDeletedAsync();
+    }
+
+    [Test]
+    public async Task GetAllFlights_Success()
+    {
+        _context.Flights.Add(new Flight()
+        {
+            FlightNumber = 1,
+            Origin = 1,
+            Destination = 1,
+        });
         
+        _context.Flights.Add(new Flight()
+        {
+            FlightNumber = 2,
+            Origin = 2,
+            Destination = 2,
+        });
+
+        await _context.SaveChangesAsync();
+
+        var result = await _repository.GetAllFlights();
+        Assert.IsNotNull(result);
+        Assert.That(result.Count, Is.EqualTo(2));
+        var firstFlight = result.Dequeue();
+        Assert.That(firstFlight.FlightNumber, Is.EqualTo(1));
+        Assert.That(firstFlight.Origin, Is.EqualTo(1));
+        Assert.That(firstFlight.Destination, Is.EqualTo(1));
+        var secondFlight = result.Dequeue();
+        Assert.That(secondFlight.FlightNumber, Is.EqualTo(2));
+        Assert.That(secondFlight.Origin, Is.EqualTo(2));
+        Assert.That(secondFlight.Destination, Is.EqualTo(2));
+        
+        await _context.Database.EnsureDeletedAsync();
+    }
+    
+    [TearDown]
+    public void Cleanup()
+    {
+        _context.Database.EnsureDeleted();
     }
 }

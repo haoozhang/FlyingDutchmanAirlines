@@ -28,4 +28,11 @@ public class FlightRepository
         return await _context.Flights.FirstOrDefaultAsync(f => f.FlightNumber == flightNumber) ??
                throw new FlightNotFoundException();
     }
+
+    public virtual async Task<Queue<Flight>> GetAllFlights()
+    {
+        var flights = new Queue<Flight>();
+        await _context.Flights.ForEachAsync(f => flights.Enqueue(f));
+        return flights;
+    }
 }
