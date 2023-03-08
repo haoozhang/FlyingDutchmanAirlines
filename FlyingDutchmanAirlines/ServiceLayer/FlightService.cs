@@ -1,4 +1,3 @@
-using System.Runtime.ExceptionServices;
 using FlyingDutchmanAirlines.DatabaseLayer.Models;
 using FlyingDutchmanAirlines.Exceptions;
 using FlyingDutchmanAirlines.RepositoryLayer;
@@ -20,7 +19,7 @@ public class FlightService
         _airportRepository = airportRepository;
     }
 
-    public async IAsyncEnumerable<FlightView> GetAllFlights()
+    public virtual async IAsyncEnumerable<FlightView> GetAllFlights()
     {
         var flights = await _flightRepository.GetAllFlights();
         foreach (var flight in flights)
@@ -42,7 +41,7 @@ public class FlightService
         }
     }
 
-    public async Task<FlightView> GetFlightByFlightNumber(int flightNumber)
+    public virtual async Task<FlightView> GetFlightByFlightNumber(int flightNumber)
     {
         try
         {

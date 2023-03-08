@@ -1,3 +1,6 @@
+using FlyingDutchmanAirlines.DatabaseLayer;
+using FlyingDutchmanAirlines.RepositoryLayer;
+using FlyingDutchmanAirlines.ServiceLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +12,7 @@ public class Startup
     {
         // let request routes to endpoint
         app.UseRouting();
+        
         // endpoint maps to controller
         app.UseEndpoints(endpoint => endpoint.MapControllers());
     }
@@ -17,5 +21,11 @@ public class Startup
     {
         // add all controllers
         services.AddControllers();
+        
+        // dependency injection
+        services.AddTransient(typeof(FlightService), typeof(FlightService));
+        services.AddTransient(typeof(FlightRepository), typeof(FlightRepository));
+        services.AddTransient(typeof(AirportRepository), typeof(AirportRepository));
+        services.AddTransient(typeof(FlyingDutchmanAirlinesContext), typeof(FlyingDutchmanAirlinesContext));
     }
 }

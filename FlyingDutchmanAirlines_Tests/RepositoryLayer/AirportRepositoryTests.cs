@@ -54,8 +54,6 @@ public class AirportRepositoryTests
         Assert.That(airport.AirportId, Is.EqualTo(0));
         Assert.That(airport.City, Is.EqualTo("test-city"));
         Assert.That(airport.Iata, Is.EqualTo("GH"));
-
-        await _context.Database.EnsureDeletedAsync();
     }
     
     [TearDown]

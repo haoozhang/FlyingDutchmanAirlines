@@ -12,6 +12,8 @@ public class BookingService
     private readonly CustomerRepository _customerRepository;
 
     private readonly FlightRepository _flightRepository;
+    
+    public BookingService() { }
 
     public BookingService(BookingRepository bookingRepository, CustomerRepository customerRepository, FlightRepository flightRepository)
     {
