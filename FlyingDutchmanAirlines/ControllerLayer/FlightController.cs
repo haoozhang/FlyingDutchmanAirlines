@@ -10,7 +10,7 @@ namespace FlyingDutchmanAirlines.ControllerLayer;
 [Route("{controller}")]
 public class FlightController : Controller
 {
-    private FlightService _flightService;
+    private readonly FlightService _flightService;
 
     public FlightController(FlightService flightService)
     {

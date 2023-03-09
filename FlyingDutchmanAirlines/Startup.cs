@@ -24,8 +24,11 @@ public class Startup
         
         // dependency injection
         services.AddTransient(typeof(FlightService), typeof(FlightService));
+        services.AddTransient(typeof(BookingService), typeof(BookingService));
         services.AddTransient(typeof(FlightRepository), typeof(FlightRepository));
         services.AddTransient(typeof(AirportRepository), typeof(AirportRepository));
+        services.AddTransient(typeof(BookingRepository), typeof(BookingRepository));
+        services.AddTransient(typeof(CustomerRepository), typeof(CustomerRepository));
         services.AddTransient(typeof(FlyingDutchmanAirlinesContext), typeof(FlyingDutchmanAirlinesContext));
     }
 }
