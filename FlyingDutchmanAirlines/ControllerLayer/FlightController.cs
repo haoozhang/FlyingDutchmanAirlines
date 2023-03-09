@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FlyingDutchmanAirlines.ControllerLayer;
 
+[Route("{controller}")]
 public class FlightController : Controller
 {
     private FlightService _flightService;
@@ -16,6 +17,7 @@ public class FlightController : Controller
         _flightService = flightService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> GetFlights()
     {
         try
@@ -37,6 +39,7 @@ public class FlightController : Controller
         }
     }
 
+    [HttpGet("{flightNumber}")]
     public async Task<IActionResult> GetFlightByFlightNumber(int flightNumber)
     {
         try

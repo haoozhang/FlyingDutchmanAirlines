@@ -27,7 +27,8 @@ public class FlyingDutchmanAirlinesContext : DbContext
     {
         if (optionsBuilder.IsConfigured) return;
         var connectionString =
-            Environment.GetEnvironmentVariable("FlyingDutchmanAirlines_Database_Connection_String") ?? string.Empty;
+            Environment.GetEnvironmentVariable("FlyingDutchmanAirlines_Database_Connection_String") ??
+            throw new ArgumentException("Connection string not found."); 
         optionsBuilder.UseSqlServer(connectionString);
     }
     
