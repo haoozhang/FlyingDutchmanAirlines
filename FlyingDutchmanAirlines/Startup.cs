@@ -12,11 +12,18 @@ public class Startup
         
         // endpoint maps to controller
         app.UseEndpoints(endpoint => endpoint.MapControllers());
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
     }
 
     public void ConfigureServices(IServiceCollection services)
     {
         // add all controllers
         services.AddControllers();
+
+        // endpoint/swagger
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
     }
 }
