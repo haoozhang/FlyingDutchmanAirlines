@@ -10,14 +10,14 @@ namespace FlyingDutchmanAirlines_Tests.ControllerLayer;
 
 public class FlightControllerTests
 {
-    private Mock<FlightService> _flightServiceMock;
+    private Mock<IFlightService> _flightServiceMock;
 
     private FlightController _flightController;
 
     [SetUp]
     public void Setup()
     {
-        _flightServiceMock = new Mock<FlightService>();
+        _flightServiceMock = new Mock<IFlightService>();
         _flightController = new FlightController(_flightServiceMock.Object);
     }
 

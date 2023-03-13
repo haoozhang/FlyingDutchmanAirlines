@@ -1,5 +1,4 @@
 using System.Net;
-using FlyingDutchmanAirlines.Exceptions;
 using FlyingDutchmanAirlines.Extensions;
 using FlyingDutchmanAirlines.Models;
 using FlyingDutchmanAirlines.ServiceLayer;
@@ -10,9 +9,9 @@ namespace FlyingDutchmanAirlines.ControllerLayer;
 [Route("{controller}")]
 public class BookingController : Controller
 {
-    private readonly BookingService _bookingService;
+    private readonly IBookingService _bookingService;
 
-    public BookingController(BookingService bookingService)
+    public BookingController(IBookingService bookingService)
     {
         _bookingService = bookingService;
     }

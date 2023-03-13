@@ -10,9 +10,9 @@ namespace FlyingDutchmanAirlines.ControllerLayer;
 [Route("{controller}")]
 public class FlightController : Controller
 {
-    private readonly FlightService _flightService;
+    private readonly IFlightService _flightService;
 
-    public FlightController(FlightService flightService)
+    public FlightController(IFlightService flightService)
     {
         _flightService = flightService;
     }
@@ -29,11 +29,11 @@ public class FlightController : Controller
             }
             return StatusCode((int) HttpStatusCode.OK, flights);
         }
-        catch (FlightNotFoundException e)
+        catch (FlightNotFoundException)
         {
             return StatusCode((int) HttpStatusCode.NotFound, "No flights found in database.");
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return StatusCode((int) HttpStatusCode.InternalServerError, "An error Occurred.");
         }
@@ -52,11 +52,11 @@ public class FlightController : Controller
             var flight = await _flightService.GetFlightByFlightNumber(flightNumber);
             return StatusCode((int) HttpStatusCode.OK, flight);
         }
-        catch (FlightNotFoundException e)
+        catch (FlightNotFoundException)
         {
             return StatusCode((int) HttpStatusCode.NotFound, "No flights found in database.");
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return StatusCode((int) HttpStatusCode.BadRequest, "Bad request.");
         }

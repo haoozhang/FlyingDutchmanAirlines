@@ -5,17 +5,22 @@ using FlyingDutchmanAirlines.RepositoryLayer;
 
 namespace FlyingDutchmanAirlines.ServiceLayer;
 
-public class BookingService
+public interface IBookingService
 {
-    private readonly BookingRepository _bookingRepository;
+    public Task<(bool, Exception?)> CreateBooking(string customerName, int flightNumber);
+}
 
-    private readonly CustomerRepository _customerRepository;
+public class BookingService : IBookingService
+{
+    private readonly IBookingRepository _bookingRepository;
 
-    private readonly FlightRepository _flightRepository;
+    private readonly ICustomerRepository _customerRepository;
+
+    private readonly IFlightRepository _flightRepository;
     
     public BookingService() { }
 
-    public BookingService(BookingRepository bookingRepository, CustomerRepository customerRepository, FlightRepository flightRepository)
+    public BookingService(IBookingRepository bookingRepository, ICustomerRepository customerRepository, IFlightRepository flightRepository)
     {
         _bookingRepository = bookingRepository;
         _customerRepository = customerRepository;

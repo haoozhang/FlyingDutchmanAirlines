@@ -5,7 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlyingDutchmanAirlines.RepositoryLayer;
 
-public class CustomerRepository
+public interface ICustomerRepository
+{
+    public Task<bool> CreateCustomer(string name);
+
+    public Task<Customer> GetCustomerByName(string name);
+}
+
+public class CustomerRepository : ICustomerRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
     
@@ -16,7 +23,7 @@ public class CustomerRepository
         _context = context;
     }
     
-    public virtual async Task<bool> CreateCustomer(string name)
+    public async Task<bool> CreateCustomer(string name)
     {
         if (IsInvalidCustomerName(name))
         {
@@ -46,7 +53,7 @@ public class CustomerRepository
         return string.IsNullOrEmpty(name) || name.Any(c => forbiddenCharacters.Contains(c));
     }
 
-    public virtual async Task<Customer> GetCustomerByName(string name)
+    public async Task<Customer> GetCustomerByName(string name)
     {
         if (IsInvalidCustomerName(name))
         {

@@ -5,7 +5,12 @@ using FlyingDutchmanAirlines.Extensions;
 
 namespace FlyingDutchmanAirlines.RepositoryLayer;
 
-public class BookingRepository
+public interface IBookingRepository
+{
+    public Task<bool> CreateBooking(int customerId, int flightNumber);
+}
+
+public class BookingRepository : IBookingRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
     
@@ -16,7 +21,7 @@ public class BookingRepository
         _context = context;
     }
 
-    public virtual async Task<bool> CreateBooking(int customerId, int flightNumber)
+    public async Task<bool> CreateBooking(int customerId, int flightNumber)
     {
         if (customerId.IsNegative() || flightNumber.IsNegative())
         {

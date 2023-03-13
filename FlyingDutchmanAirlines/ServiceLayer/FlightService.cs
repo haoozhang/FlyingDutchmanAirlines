@@ -5,21 +5,28 @@ using FlyingDutchmanAirlines.Views;
 
 namespace FlyingDutchmanAirlines.ServiceLayer;
 
-public class FlightService
+public interface IFlightService
 {
-    private FlightRepository _flightRepository;
+    public IAsyncEnumerable<FlightView> GetAllFlights();
 
-    private AirportRepository _airportRepository;
+    public Task<FlightView> GetFlightByFlightNumber(int flightNumber);
+}
+
+public class FlightService : IFlightService
+{
+    private IFlightRepository _flightRepository;
+
+    private IAirportRepository _airportRepository;
 
     public FlightService() { }
 
-    public FlightService(FlightRepository flightRepository, AirportRepository airportRepository)
+    public FlightService(IFlightRepository flightRepository, IAirportRepository airportRepository)
     {
         _flightRepository = flightRepository;
         _airportRepository = airportRepository;
     }
 
-    public virtual async IAsyncEnumerable<FlightView> GetAllFlights()
+    public async IAsyncEnumerable<FlightView> GetAllFlights()
     {
         var flights = await _flightRepository.GetAllFlights();
         foreach (var flight in flights)
@@ -41,7 +48,7 @@ public class FlightService
         }
     }
 
-    public virtual async Task<FlightView> GetFlightByFlightNumber(int flightNumber)
+    public async Task<FlightView> GetFlightByFlightNumber(int flightNumber)
     {
         try
         {

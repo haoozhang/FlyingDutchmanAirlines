@@ -9,20 +9,20 @@ namespace FlyingDutchmanAirlines_Tests.ServiceLayer;
 
 public class BookingServiceTests
 {
-    private Mock<BookingRepository> _bookingRepositoryMock;
+    private Mock<IBookingRepository> _bookingRepositoryMock;
 
-    private Mock<CustomerRepository> _customerRepositoryMock;
+    private Mock<ICustomerRepository> _customerRepositoryMock;
 
-    private Mock<FlightRepository> _flightRepositoryMock;
+    private Mock<IFlightRepository> _flightRepositoryMock;
 
-    private BookingService _bookingService;
+    private IBookingService _bookingService;
 
     [SetUp]
     public void Setup()
     {
-        _bookingRepositoryMock = new Mock<BookingRepository>();
-        _customerRepositoryMock = new Mock<CustomerRepository>();
-        _flightRepositoryMock = new Mock<FlightRepository>();
+        _bookingRepositoryMock = new Mock<IBookingRepository>();
+        _customerRepositoryMock = new Mock<ICustomerRepository>();
+        _flightRepositoryMock = new Mock<IFlightRepository>();
         _bookingService = new BookingService(_bookingRepositoryMock.Object, _customerRepositoryMock.Object, _flightRepositoryMock.Object);
     }
 

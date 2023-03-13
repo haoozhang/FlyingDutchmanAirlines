@@ -8,18 +8,18 @@ namespace FlyingDutchmanAirlines_Tests.ServiceLayer;
 
 public class FlightServiceTests
 {
-    private Mock<FlightRepository> _flightRepositoryMock;
+    private Mock<IFlightRepository> _flightRepositoryMock;
 
-    private Mock<AirportRepository> _airportRepositoryMock;
+    private Mock<IAirportRepository> _airportRepositoryMock;
 
-    private FlightService _flightService;
+    private IFlightService _flightService;
 
     [SetUp]
     public void Setup()
     {
-        _flightRepositoryMock = new Mock<FlightRepository>();
+        _flightRepositoryMock = new Mock<IFlightRepository>();
 
-        _airportRepositoryMock = new Mock<AirportRepository>();
+        _airportRepositoryMock = new Mock<IAirportRepository>();
 
         _flightService = new FlightService(_flightRepositoryMock.Object, _airportRepositoryMock.Object);
     }

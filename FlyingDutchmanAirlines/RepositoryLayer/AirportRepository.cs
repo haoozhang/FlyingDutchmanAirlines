@@ -6,7 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlyingDutchmanAirlines.RepositoryLayer;
 
-public class AirportRepository
+public interface IAirportRepository
+{
+    public Task<Airport> GetAirportById(int airportId);
+}
+
+public class AirportRepository : IAirportRepository
 {
     private readonly FlyingDutchmanAirlinesContext _context;
 
@@ -17,7 +22,7 @@ public class AirportRepository
         _context = context;
     }
 
-    public virtual async Task<Airport> GetAirportById(int airportId)
+    public async Task<Airport> GetAirportById(int airportId)
     {
         if (airportId.IsNegative())
         {

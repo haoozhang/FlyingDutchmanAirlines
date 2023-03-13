@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 namespace FlyingDutchmanAirlines
@@ -13,6 +15,11 @@ namespace FlyingDutchmanAirlines
         private static void InitializeHost()
         {
             Host.CreateDefaultBuilder()
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureContainer<ContainerBuilder>(builder =>
+                {
+                    builder.RegisterModule<FlyingDutchmanAirlinesModule>();
+                })
                 .ConfigureWebHostDefaults(builder =>
                 {
                     // use startup
